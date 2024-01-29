@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunShield🌤️</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="head">
+        <div class="title">
+            <h1>SunShield🌤️</h1>
+            <p>Your go-to guide for sun protection. <br> Get real-time UV index updates and expert advice on when to apply sunscreen. <br> Enjoy the outdoors responsibly with SunShield Insight!</p>
+        </div>
+        <div class="midimg">
+            <img src="./cute-sticker.gif" alt="">
+        </div>
+    </div>
+    
+    <div class="content">
+        <form action="/process-location" method="post">
+            <label for="Name">Enter your City Name</label>
+            <input type="text" id="city" name="city" formaction="post">
+            <label for="Name">Enter your Country name</label>
+            <input type="text" id="country" name="country" formaction="post">
+            <button type="submit" id="getLocationBtn">Get Recommendation</button>
+        </form>
+        
+        <div class="response-area">
+            <h3>SunShield Insight Recommendation:</h3> 
+            <% if (locals.City) { %>
+                <% const uvIndex = locals.uvIndex; %>
+                <% const maxUvIndex = locals.maxUvIndex; %>
+                <% const maxUvIndexTime = new Date(locals.maxUvIndexTime); %>
+                <h2>UV Index: <%= uvIndex %> - Location: <%= locals.City %>, <%= locals.Country %></h2>
+                
+                <% if (uvIndex >= 6 || uvIndex >= maxUvIndex - 1) { %>
+                    <% if (maxUvIndexTime.getHours() >= 11 && maxUvIndexTime.getHours() <= 14) { %>
+                        <p>It's a high UV day. Apply sunscreen!</p>
+                    <% } else { %>
+                        <p>UV is high, but it's not peak sun hours. Use discretion.</p>
+                    <% } %>
+                <% } else { %>
+                    <p>UV is moderate or low. Sunscreen may not be necessary.</p>
+                <% } %>
+                
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
